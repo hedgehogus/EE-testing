@@ -18,7 +18,7 @@ test.describe('Home', () => {
 
 ## Locators
 
-# id selector and check url after
+### id selector and check url after
 ```
 await page.locator('#get-started').click();
 
@@ -27,7 +27,7 @@ await expect(page).toHaveUrl('https://expected.com/url');
 // part of url
 await expect(page).toHaveUrl('/.*expected-url');
 ```
-# text selector
+### text selector
 ```
 // text should be unique in the dom
 
