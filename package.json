@@ -1,0 +1,22 @@
+{
+  "name": "EE-testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hedgehogus/EE-testing.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hedgehogus/EE-testing/issues"
+  },
+  "homepage": "https://github.com/hedgehogus/EE-testing#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.47.2",
+    "@types/node": "^22.7.4"
+  }
+}
