@@ -1,6 +1,6 @@
 ## Test setup
 
-```
+``` 
 import { test, expect, Page } from '@playwright/test';
 
 test.describe('Home', () => {
