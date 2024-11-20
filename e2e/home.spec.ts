@@ -62,6 +62,33 @@ test.describe('Home', () => {
 
         // other locators docs https://playwright.dev/docs/other-locators#xpath-locator
     })
-    
-    
+
+    test('verify text for nav links', async ({ page }) => {
+        const expectedLinks = [
+            'Жінкам',
+            'Жінкам',
+            'Чоловікам',
+            'Чоловікам',
+            'Інформація',
+            'Інформація'
+        ]
+        await page.goto('https://diadia.ua/');
+
+        // find the nav links
+        const navLinks = page.locator('.navbar-nav li[class*=drop] span[class*=dropdown-toggle]');
+
+        // one required element
+        const navLink = page.locator('.navbar-nav li[class*=drop] span[class*=dropdown-toggle]').nth(2);
+
+        let result: any [] = [];
+        for(const el of await navLinks.elementHandles()) {
+            const text = await el.textContent();
+            result.push(text?.trim())
+        }
+
+        // verify nav links text
+        //expect(await navLinks.allTextContents()).toEqual(expectedLinks);
+       // expect(await navLink.textContent()).toEqual(expectedLinks[2]);
+       expect(result).toEqual(expectedLinks);
+    })
 })
