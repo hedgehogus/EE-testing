@@ -44,6 +44,9 @@ test.describe('contact page', () => {
         // soft assertions - assertions can fail, but test will go further
 
         expect.soft(await recentPostsList.count()).toEqual(5);
+
+        // check for soft assertions errors and fail test if they are there
+        expect(test.info().errors.length).toBeLessThan(1);
     })
 
 })

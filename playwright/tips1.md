@@ -40,3 +40,19 @@ conts headingText = await page.locator('text="think different"');
 // verify heading text is visible
 await expect(headingText).toBeVisible();
 ```
+## DEBUGGING
+
+### debug console
+DEBUG=pw:api npx playwright test home.spec.ts    
+
+### playwright trace viewer
+playwright.config.js -> trace: 'off' | 'on' | 'retain-on-failure' | 'on-first-retry' | 'on-all-retries' | 'retain-on-first-failure';
+
+### playwright inspector
+PWDEBUG=1 npx playwright test home.spec.ts 
+-- for windows: two lines
+$env:PWDEBUG=1 
+npx playwright test home.spec.ts 
+
+**easy way to open inspector**
+**page.pause()** in any place in the code

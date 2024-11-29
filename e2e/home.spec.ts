@@ -86,6 +86,8 @@ test.describe('Home', () => {
             result.push(text?.trim())
         }
 
+        expect.soft(result[0]).toEqual(expectedLinks[2]);
+
         // verify nav links text
         //expect(await navLinks.allTextContents()).toEqual(expectedLinks);
        // expect(await navLink.textContent()).toEqual(expectedLinks[2]);
