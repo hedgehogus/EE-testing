@@ -55,4 +55,4 @@ $env:PWDEBUG=1
 npx playwright test home.spec.ts 
 
 **easy way to open inspector**
-**page.pause()** in any place in the code
+**await page.pause()** in any place in the code
