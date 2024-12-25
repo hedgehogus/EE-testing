@@ -1,9 +1,14 @@
 import { test, expect } from '@playwright/test';
+import HomePage from '../pages/home.page';
 
 test.describe('Home', () => {
+    let homePage: HomePage;
+
     test('Open Homepage and verify title', async ({ page }) => {
+        homePage = new HomePage(page);
         // open url
-        await page.goto('https://diadia.ua/');
+        //await page.goto('https://diadia.ua/');
+        await homePage.navigate();
  
         // verify title
         await expect(page).toHaveTitle('Інтернет-магазин жіночого одягу DiaDia в Києві - купити стильний, модний одяг для жінок');
@@ -18,7 +23,9 @@ test.describe('Home', () => {
     })
 
     test('Click overview using css selector ', async ({ page }) => {
-        await page.goto('https://diadia.ua/');
+        homePage = new HomePage(page);
+
+        await homePage.navigate();
 
         // click the button
         // await page.locator('#button').click(); // by id
@@ -28,7 +35,8 @@ test.describe('Home', () => {
         //await page.locator('text=Переглянути').click();
 
         // case sensitive
-        await page.locator('text="Переглянути"').click();
+        //await page.locator('text="Переглянути"').click();
+        await homePage.reviewBtn.click();
 
         // verify url
         //await expect(page).toHaveURL('https://diadia.ua/new-collection/'); // full path
@@ -36,7 +44,9 @@ test.describe('Home', () => {
     })
 
     test('verify heading text is visible', async ({ page }) => {
-        await page.goto('https://diadia.ua/');
+        homePage = new HomePage(page);
+
+        await homePage.navigate();
 
         // find the text locator
         const headingTextFirst = page.locator('text=Нова колекція').first();
@@ -44,26 +54,29 @@ test.describe('Home', () => {
         // combine css and text selectors
 
         //const headingText = page.locator('.slider__title >> text=Нова колекція');
-        const headingText = page.locator('.slider__title:has-text("Нова колекція")');
+        //const headingText = page.locator('.slider__title:has-text("Нова колекція")');
 
 
         // verify text element is visible
-        await expect(headingText).toBeVisible();
+        await expect(homePage.headingText).toBeVisible();
     })
 
     test('check search is visible by xpath selector', async ({ page }) => {
-        await page.goto('https://diadia.ua/');
+        homePage = new HomePage(page);
+        await homePage.navigate();
 
         // find the search icon
-        const searchIcon = page.locator('//*[@class="header-wrapper"]//*[@class="search"]');
+        //const searchIcon = page.locator('//*[@class="header-wrapper"]//*[@class="search"]');
 
         // verify text element is visible
-        await expect(searchIcon).toBeVisible();
+        await expect(homePage.searchIcon).toBeVisible();
 
         // other locators docs https://playwright.dev/docs/other-locators#xpath-locator
     })
 
     test('verify text for nav links', async ({ page }) => {
+        homePage = new HomePage(page);
+
         const expectedLinks = [
             'Жінкам',
             'Жінкам',
@@ -72,25 +85,25 @@ test.describe('Home', () => {
             'Інформація',
             'Інформація'
         ]
-        await page.goto('https://diadia.ua/');
+        await homePage.navigate();
 
         // find the nav links
-        const navLinks = page.locator('.navbar-nav li[class*=drop] span[class*=dropdown-toggle]');
+       // const navLinks = page.locator('.navbar-nav li[class*=drop] span[class*=dropdown-toggle]');
 
         // one required element
-        const navLink = page.locator('.navbar-nav li[class*=drop] span[class*=dropdown-toggle]').nth(2);
-
+        //const navLink = homePage.navLink;
+/* 
         let result: any [] = [];
-        for(const el of await navLinks.elementHandles()) {
+        for(const el of await homePage.navLinks.elementHandles()) {
             const text = await el.textContent();
             result.push(text?.trim())
-        }
+        } */
 
-        expect.soft(result[0]).toEqual(expectedLinks[2]);
+        expect.soft(await homePage.getNavLinksText()[0]).toEqual(expectedLinks[2]);
 
         // verify nav links text
         //expect(await navLinks.allTextContents()).toEqual(expectedLinks);
        // expect(await navLink.textContent()).toEqual(expectedLinks[2]);
-       expect(result).toEqual(expectedLinks);
+       expect(await homePage.getNavLinksText()).toEqual(expectedLinks);
     })
 })

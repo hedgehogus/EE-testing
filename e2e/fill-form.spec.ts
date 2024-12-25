@@ -29,7 +29,7 @@ test.describe('contact page', () => {
         // get the recent post list elements
         const recentPostsList = page.locator('#recent-posts-3 ul li');
 
-        // loop trough the list and assert the car length > 10
+        // loop trough the list and assert the char length > 10
         for(const el of await recentPostsList.elementHandles()) {
             expect((await el.textContent())?.trim().length).toBeGreaterThan(10);
         }

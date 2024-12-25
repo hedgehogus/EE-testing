@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
+import CartPage from '../pages/cart.page';
 const path = require('path');
 
 test.describe('upload', () => {
+    let cartPage: CartPage;
+
     test('regular upload', async ({ page }) => {
         // open url
         await page.goto('https://zenui.net/color-palette');
@@ -17,6 +20,22 @@ test.describe('upload', () => {
 
         // assertion
         await expect(page.locator('#succes_message_id')).toContainText('uploaded succesfully');
+    })
+
+    test('upload using cart.page', async ({ page }) => {
+        cartPage = new CartPage(page);
+
+        // open url
+        await page.goto('https://practice.automationbro.com/cart/');
+
+        // provide test file path
+        const filePath = path.join(__dirname, '../data/images.jpg');
+
+        // upload test file
+        await cartPage.uploadComponent().uploadFile(filePath);
+
+        // assertion
+        await expect(cartPage.uploadComponent().successTxt).toContainText('uploaded succesfully');
     })
 
     test('upload with DOM manipulation when field is hidden', async ({ page }) => {
