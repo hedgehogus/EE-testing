@@ -1,15 +1,23 @@
 import { test, expect } from '@playwright/test';
+import { faker } from '@faker-js/faker';
 
 test.describe('contact page', () => {
     test('fill contact form', async ({ page }) => {
         // open url
-        await page.goto('https://practice.automationbro.com/contact');
+        await page.goto('/contact');
 
         // fill out the input fields
-        await page.locator('.contact-name input').fill('test Name');
+       /*  await page.locator('.contact-name input').fill('test Name');
         await page.locator('.contact-email input').fill('test@mail.com');
         await page.locator('.contact-phone input').fill('123456789');
-        await page.locator('.contact-message textarea').fill('this is a text message');
+        await page.locator('.contact-message textarea').fill('this is a text message'); */
+
+        // we can generate random data to fill form by Faker js
+
+        await page.locator('.contact-name input').fill(faker.person.firstName());
+        await page.locator('.contact-email input').fill(faker.internet.email());
+        await page.locator('.contact-phone input').fill(faker.phone.number());
+        await page.locator('.contact-message textarea').fill(faker.lorem.sentence());
 
         // add soft assertion
         await expect.soft(page.locator('.contact-message textarea')).toHaveText("Fail test message");

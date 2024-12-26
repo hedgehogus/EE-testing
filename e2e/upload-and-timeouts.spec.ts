@@ -25,6 +25,8 @@ test.describe('upload', () => {
     test('upload using cart.page', async ({ page }) => {
         cartPage = new CartPage(page);
 
+        await page.pause(); // should be underlined by linter
+        
         // open url
         await page.goto('https://practice.automationbro.com/cart/');
 

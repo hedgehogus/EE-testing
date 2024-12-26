@@ -56,3 +56,11 @@ npx playwright test home.spec.ts
 
 **easy way to open inspector**
 **await page.pause()** in any place in the code
+
+## ESLint
+
+https://www.npmjs.com/package/eslint-plugin-playwright
+
+## Randomize data for testing
+
+https://fakerjs.dev/

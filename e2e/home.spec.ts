@@ -4,12 +4,15 @@ import HomePage from '../pages/home.page';
 test.describe('Home', () => {
     let homePage: HomePage;
 
-    test('Open Homepage and verify title', async ({ page }) => {
+    test.beforeEach(async ({ page }) => {
         homePage = new HomePage(page);
         // open url
         //await page.goto('https://diadia.ua/');
         await homePage.navigate();
- 
+    })
+    
+
+    test('Open Homepage and verify title', async ({ page }) => {
         // verify title
         await expect(page).toHaveTitle('Інтернет-магазин жіночого одягу DiaDia в Києві - купити стильний, модний одяг для жінок');
     })
@@ -22,10 +25,7 @@ test.describe('Home', () => {
         await expect(page).toHaveTitle('New collection');
     })
 
-    test('Click overview using css selector ', async ({ page }) => {
-        homePage = new HomePage(page);
-
-        await homePage.navigate();
+    test('Click overview using css selector', async ({ page }) => {
 
         // click the button
         // await page.locator('#button').click(); // by id
@@ -44,10 +44,6 @@ test.describe('Home', () => {
     })
 
     test('verify heading text is visible', async ({ page }) => {
-        homePage = new HomePage(page);
-
-        await homePage.navigate();
-
         // find the text locator
         const headingTextFirst = page.locator('text=Нова колекція').first();
 
@@ -62,9 +58,6 @@ test.describe('Home', () => {
     })
 
     test('check search is visible by xpath selector', async ({ page }) => {
-        homePage = new HomePage(page);
-        await homePage.navigate();
-
         // find the search icon
         //const searchIcon = page.locator('//*[@class="header-wrapper"]//*[@class="search"]');
 
@@ -75,8 +68,7 @@ test.describe('Home', () => {
     })
 
     test('verify text for nav links', async ({ page }) => {
-        homePage = new HomePage(page);
-
+        
         const expectedLinks = [
             'Жінкам',
             'Жінкам',
@@ -85,7 +77,6 @@ test.describe('Home', () => {
             'Інформація',
             'Інформація'
         ]
-        await homePage.navigate();
 
         // find the nav links
        // const navLinks = page.locator('.navbar-nav li[class*=drop] span[class*=dropdown-toggle]');

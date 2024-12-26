@@ -24,7 +24,7 @@ class HomePage {
     }
 
     async getNavLinksText(): Promise<any []>  {
-        let result: any [] = [];
+        const result: any [] = [];
         for(const el of await this.navLinks.elementHandles()) {
             result.push((await el.textContent())?.trim())
         }
