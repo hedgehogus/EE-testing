@@ -1,10 +1,22 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 import HomePage from '../pages/home.page';
 
-test.describe('Home', () => {
+test.describe.serial('Home', () => { // need to use serial with before all block - run only single worker and run test in a sequence
     let homePage: HomePage;
+    let page: Page;
 
-    test.beforeEach(async ({ page }) => {
+    test.beforeAll(async ({ browser }) => { // no page available here
+        // use for authentication only for sequential tests
+        page = await browser.newPage();
+
+        await page.goto('/my-account');
+        await page.locator('#username').fill('pacticeuser1');
+        await page.locator('#password').fill('pacticepass1');
+        await page.locator('[value="Log in"').click();
+        await expect(page.locator('a:has-text("logout")')).toBeVisible();
+    })
+
+    test.beforeEach(async ({ }) => { // remove page from all blocks to run test in serial mode
         homePage = new HomePage(page);
         // open url
         //await page.goto('https://diadia.ua/');
@@ -15,6 +27,14 @@ test.describe('Home', () => {
     test('Open Homepage and verify title', async ({ page }) => {
         // verify title
         await expect(page).toHaveTitle('Інтернет-магазин жіночого одягу DiaDia в Києві - купити стильний, модний одяг для жінок');
+    })
+
+    test.describe('test for not logged in user', () => {
+        test.use({ storageState: 'notLoggedInState.json'})
+        test('verify smth for not logged in user', async ({ page }) => {
+            // do smth
+            // run tests
+        })
     })
 
     test('Open New Colection and verify title', async ({ page }) => {

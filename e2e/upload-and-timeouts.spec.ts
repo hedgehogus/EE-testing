@@ -22,6 +22,28 @@ test.describe('upload', () => {
         await expect(page.locator('#succes_message_id')).toContainText('uploaded succesfully');
     })
 
+    test.describe('try to upload different files with parameterizing', () => {
+        const fileName = ['logotitle.png', '3mb-file.pdf'];
+
+        for (const name of fileName) {
+            test(`upload file ${name}`, async ({ page }) => {
+                await page.goto('https://zenui.net/color-palette');
+
+                // store test file path
+                const filePath = path.join(__dirname, `../data/${name}`);
+            
+                // upload test file in non hidden input
+                await page.setInputFiles('input#upfile_1', filePath);
+            
+                // click the submit button
+                await page.locator('#upload_1').click();
+            
+                // assertion
+                await expect(page.locator('#succes_message_id')).toContainText('uploaded succesfully');
+            })
+        }
+    })
+
     test('upload using cart.page', async ({ page }) => {
         cartPage = new CartPage(page);
 
