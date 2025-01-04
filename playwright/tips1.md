@@ -64,3 +64,31 @@ https://www.npmjs.com/package/eslint-plugin-playwright
 ## Randomize data for testing
 
 https://fakerjs.dev/
+
+## run test
+
+npx playwright test e2e
+
+**define number of workers:**
+
+npx playwright test e2e --workers 4
+
+**use specific built in reporter**
+
+npx playwright test e2e --reporter=list
+npx playwright test e2e --reporter=line
+npx playwright test e2e --reporter=html
+
+## Setup allure reporter
+
+npm i -D @playwright/test allure-playwright
+npm i -D allure-commandline
+
+npx allure generate allure-results --clean && npx allure open
+
+in playwright.config.ts change **trace: 'retain-on-failure',**
+
+- download report from trace
+- go to trace.playwright.dev
+- put zip file from the report
+- see full trace report with screenshots
