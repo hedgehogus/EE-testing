@@ -21,3 +21,4 @@ jobs:
               with:
                 name: Test Results
                 path: test-results
+                include-hidden-files: true
